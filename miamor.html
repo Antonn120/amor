@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nuestra Cita ❤️</title>
+
+<style>
+body{
+    margin:0;
+    padding:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background: radial-gradient(circle at top,#ff4e8a,#8e2de2,#4a00e0);
+    font-family: 'Georgia', serif;
+    overflow:hidden;
+}
+
+.carta-container{
+    position:relative;
+    width:400px;
+    height:260px;
+    cursor:pointer;
+    perspective:1000px;
+}
+
+.sobre{
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:#d6336c;
+    border-radius:12px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.4);
+}
+
+.tapa{
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:#ff6f9f;
+    clip-path: polygon(0 0, 50% 65%, 100% 0);
+    transform-origin:top;
+    transition: transform 1.2s ease;
+    border-radius:12px 12px 0 0;
+}
+
+.carta{
+    position:absolute;
+    width:90%;
+    height:270%;
+    background:white;
+    top:25px;
+    left:5%;
+    border-radius:12px;
+    padding:25px;
+    box-sizing:border-box;
+    transform: translateY(170px);
+    transition: transform 1.2s ease;
+    overflow:auto;
+    box-shadow:0 10px 30px rgba(0,0,0,0.2);
+}
+
+.carta h2{
+    margin-top:0;
+    color:#d6336c;
+}
+
+.carta p{
+    font-size:15px;
+    color:#333;
+    line-height:1.8;
+}
+
+.fotos{
+    display:flex;
+    gap:10px;
+    margin:15px 0;
+}
+
+.fotos img{
+    width:48%;
+    border-radius:10px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.3);
+    transition:0.4s;
+}
+
+.fotos img:hover{
+    transform:scale(1.08);
+}
+
+.firma{
+    margin-top:20px;
+    font-style:italic;
+    color:#d6336c;
+    font-weight:bold;
+}
+
+.pregunta{
+    margin-top:25px;
+    font-size:18px;
+    font-weight:bold;
+    color:#b30059;
+    text-align:center;
+}
+
+.botones{
+    margin-top:15px;
+    display:flex;
+    justify-content:center;
+    gap:15px;
+}
+
+button{
+    padding:8px 18px;
+    border:none;
+    border-radius:20px;
+    cursor:pointer;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+.si{
+    background:#d6336c;
+    color:white;
+}
+
+.no{
+    background:gray;
+    color:white;
+    position:relative;
+}
+
+.abierto .tapa{
+    transform: rotateX(180deg);
+}
+
+.abierto .carta{
+    transform: translateY(-130px);
+}
+
+.corazones{
+    position:fixed;
+    font-size:20px;
+    animation: flotar 4s linear forwards;
+}
+
+@keyframes flotar{
+    0%{ transform:translateY(0); opacity:1;}
+    100%{ transform:translateY(-300px); opacity:0;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎵 Música invisible -->
+<audio id="musica" loop>
+    <source src="eres ese algo.mp3" type="audio/mpeg">
+</audio>
+
+<div class="carta-container" onclick="abrirCarta(this)">
+    <div class="sobre"></div>
+    <div class="tapa"></div>
+
+    <div class="carta">
+        <h2>Para ti, Danielinha ❤️</h2>
+
+        <p>
+            Gracias por ser mi San Valentín.
+            Muero de ganas verte este 14 de Febrero
+            y pasarla genial… Quitarnos lo amargo por un momento
+            y si es posible endulzar este amor que aún persevera ❤️
+        </p>
+
+        <div class="fotos">
+            <img src="antonio.jpeg">
+            <img src="dani.jpeg">
+        </div>
+
+        <p>
+            Yo te elijo hoy, mañana y siempre.
+            Gracias por amarme incluso en mis días complicados.  
+            Y mientras Dios nos dé fuerza, quiero seguir luchando por nosotros.
+
+
+        </p>
+
+        <div class="firma">
+            Con todo mi corazón,<br>
+            Antonio ❤️
+        </div>
+
+        <div class="pregunta">
+            ¿Procedemos a disfrutar la cita?
+            <div class="botones">
+                <button class="si" onclick="respuestaSi(event)">Sí ❤️</button>
+                <button class="no" onmouseover="moverNo()">No 😅</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+let yaInicio = false;
+
+function abrirCarta(elemento){
+    elemento.classList.add("abierto");
+
+    if(!yaInicio){
+        document.getElementById("musica").play();
+        yaInicio = true;
+    }
+}
+
+function moverNo(){
+    const btn = document.querySelector(".no");
+    btn.style.position = "absolute";
+    btn.style.top = Math.random()*200 + "px";
+    btn.style.left = Math.random()*200 + "px";
+}
+
+function respuestaSi(event){
+    event.stopPropagation();
+    alert("Sabía que dirías que sí 😏❤️ Prepárate para una cita inolvidable.");
+    for(let i=0;i<25;i++){
+        let corazon = document.createElement("div");
+        corazon.innerHTML="❤️";
+        corazon.classList.add("corazones");
+        corazon.style.left=Math.random()*100+"vw";
+        corazon.style.top="80vh";
+        document.body.appendChild(corazon);
+        setTimeout(()=>corazon.remove(),4000);
+    }
+}
+</script>
+
+</body>
+</html>
